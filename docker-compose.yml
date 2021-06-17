@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  postgis:
+    container_name: city-distance-poc-postgis
+    image: postgis/postgis:latest
+    environment:
+      - POSTGRES_USER=citypoc
+      - POSTGRES_PASSWORD=citypoc
+      - POSTGRES_DB=citydata
+    ports:
+      - 5432:5432
+  python:
+    container_name: city-distance-poc-py
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - postgis
